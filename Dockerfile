@@ -1,4 +1,4 @@
-FROM golang:1.10.0-alpine
+FROM golang:1.10-alpine
 
 ARG VERSION=225171a4b
 
