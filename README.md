@@ -2,6 +2,12 @@
 
 `Dockerfile` for `swarm` used on https://swarm-gateways.net and https://open.swarm-gateways.net
 
+## Docker tags
+
+* `latest` - latest stable release
+* `edge` - latest build from `master`
+* `v0.x.y` - specific stable release
+
 ## Environment variables
 
 * `PASSWORD` - *required* - Used to setup a sample Ethereum account in the data directory. If a data directory is mounted with a volume, the first Ethereum account from it is loaded, and Swarm will try to decrypt it non-interactively with `PASSWORD`
