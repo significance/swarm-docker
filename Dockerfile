@@ -1,12 +1,12 @@
 FROM golang:1.10-alpine
 
-ARG VERSION=00e6da970
+ARG VERSION=ff98276
 
 RUN apk add --update git vim curl wget gcc g++ bash musl-dev linux-headers
 
 RUN mkdir -p $GOPATH/src/github.com/ethereum && \
     cd $GOPATH/src/github.com/ethereum && \
-    git clone https://github.com/ethereum/go-ethereum && \
+    git clone https://github.com/ethersphere/go-ethereum && \
     cd $GOPATH/src/github.com/ethereum/go-ethereum && \
     git checkout ${VERSION} && \
     go get github.com/ethereum/go-ethereum && \
