@@ -1,6 +1,6 @@
 FROM golang:1.10-alpine
 
-ARG VERSION=ae95ebb90
+ARG VERSION=bff7437a5
 
 RUN apk add --update git vim curl wget gcc g++ bash musl-dev linux-headers
 
