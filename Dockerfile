@@ -1,8 +1,8 @@
 FROM golang:1.11-alpine as builder
 
-ARG VERSION=0bf3065fb
+ARG VERSION=127553253
 
-RUN apk add --update git vim curl wget gcc g++ bash musl-dev linux-headers
+RUN apk add --update git gcc g++ linux-headers
 RUN mkdir -p $GOPATH/src/github.com/ethereum && \
     cd $GOPATH/src/github.com/ethereum && \
     git clone https://github.com/ethereum/go-ethereum && \
@@ -13,9 +13,7 @@ RUN mkdir -p $GOPATH/src/github.com/ethereum && \
     cd $GOPATH/src/github.com/ethereum/go-ethereum && \
     go install -ldflags "-X main.gitCommit=${VERSION}" ./cmd/swarm && \
     go install -ldflags "-X main.gitCommit=${VERSION}" ./cmd/geth && \
-    cp $GOPATH/bin/swarm /swarm && cp $GOPATH/bin/geth /geth && \
-    apk del git go make gcc musl-dev g++ libc-dev && \
-    rm -rf $GOPATH && rm -rf /var/cache/apk/*
+    cp $GOPATH/bin/swarm /swarm && cp $GOPATH/bin/geth /geth
 
 
 # Release image with the required binaries and scripts
