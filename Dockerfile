@@ -1,11 +1,11 @@
 FROM golang:1.11-alpine as builder
 
-ARG VERSION=2e98631c5
+ARG VERSION=6b083920c
 
 RUN apk add --update git gcc g++ linux-headers
 RUN mkdir -p $GOPATH/src/github.com/ethereum && \
     cd $GOPATH/src/github.com/ethereum && \
-    git clone https://github.com/ethereum/go-ethereum && \
+    git clone https://github.com/ethersphere/go-ethereum && \
     cd $GOPATH/src/github.com/ethereum/go-ethereum && \
     git checkout ${VERSION} && \
     go get github.com/ethereum/go-ethereum && \
