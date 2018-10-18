@@ -7,8 +7,22 @@ set -o nounset
 PASSWORD=${PASSWORD:-}
 DATADIR=${DATADIR:-/root/.ethereum/}
 CONTAINER_NAME=${CONTAINER_NAME:-localhost}
+PORT=${PORT:-}
+BZZPORT=${BZZPORT:-}
 
 if [ "$PASSWORD" == "" ]; then echo "Password must be set, in order to use swarm non-interactively." && exit 1; fi
+
+if [ "$PORT" == "" ]; then
+  # assumes that HOSTNAME is `swarm-default-XXX`
+  NUMBER=$(echo "$HOSTNAME" | cut -d'-' -f3)
+  PORT=$(($NUMBER+31000))
+fi
+
+if [ "$BZZPORT" == "" ]; then
+  # assumes that HOSTNAME is `swarm-default-XXX`
+  NUMBER=$(echo "$HOSTNAME" | cut -d'-' -f3)
+  BZZPORT=$(($NUMBER+32000))
+fi
 
 echo $PASSWORD > /password
 
@@ -24,4 +38,4 @@ echo $VERSION
 export BZZACCOUNT="`echo -n $KEYFILE | tail -c 40`" || true
 if [ "$BZZACCOUNT" == "" ]; then echo "Could not parse BZZACCOUNT from keyfile." && exit 1; fi
 
-exec /swarm --bzzaccount=$BZZACCOUNT --password /password --datadir $DATADIR $@ 2>&1 | awk -v name="$CONTAINER_NAME" '{print name " " $0}'
+exec /swarm --bzzport=$BZZPORT --port=$PORT --bzzaccount=$BZZACCOUNT --password /password --datadir $DATADIR $@ 2>&1 | awk -v name="$CONTAINER_NAME" '{print name " " $0}'
